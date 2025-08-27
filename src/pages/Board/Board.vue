@@ -3,22 +3,17 @@
     <h1 class="board__title">Mini Trello</h1>
     <Search/>
     <div class="board__columns">
-      <Column v-for="column in columns" :key="column.id" :title="column.title"/>
+      <ColumnComponent v-for="column in columns" :key="column.id" :title="column.title" :code="column.code"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import {defineAsyncComponent} from "vue";
-import Column from "./components/Column.vue";
+import type {Column} from "../../types/column.ts";
 
 const Search = defineAsyncComponent(() => import('../../components/Search.vue'));
-
-interface Column {
-  id: number,
-  title: string,
-  code: string
-}
+const ColumnComponent = defineAsyncComponent(() => import('./components/Column.vue'));
 
 const columns: Column[] = [
   {
@@ -43,6 +38,8 @@ const columns: Column[] = [
 <style scoped lang="scss">
 .board {
   width: 100%;
+  padding: 0 16px;
+  margin: 0 auto;
   height: 100svh;
   background-color: #d2defc;
   display: flex;
@@ -51,10 +48,13 @@ const columns: Column[] = [
   justify-content: start;
   gap: 30px;
 
-  &.__columns {
+  &__columns {
+    width: 100%;
+    height: 100%;
    display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    align-items: stretch;
+    gap: 40px;
   }
 }
 
