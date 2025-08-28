@@ -1,7 +1,7 @@
 <template>
   <div class="board">
     <h1 class="board__title">Mini Trello</h1>
-    <Search/>
+    <Search />
     <div class="board__columns">
       <ColumnComponent v-for="column in columns" :key="column.id" :title="column.title" :code="column.code"/>
     </div>

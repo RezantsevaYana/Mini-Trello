@@ -1,5 +1,5 @@
 <template>
-  <article class="task-card" :class="{ 'task-card-done': props.task.columnCode === 'done'}">
+  <article class="task-card" :class="{ 'task-card-done': props.task.columnCode === 'done'}" @click="editTaskHandler">
     <div class="task-card__status" :class="{ 'task-card__status_done': props.task.columnCode === 'done'}"></div>
     <div class="task-card__close">x</div>
     <h3 class="task-card__number">№ {{ props.task.id }}</h3>
@@ -10,10 +10,17 @@
 
 <script setup lang="ts">
 import type { Task } from '../../../types/task.ts';
+import {useTasksStore} from "../../../store/tasksStore.ts";
+
+const tasksStore = useTasksStore();
 
 const props = defineProps<{
     task: Task
 }>()
+
+const editTaskHandler = () => {
+  tasksStore.setCurrentTask(props.task);
+}
 
 </script>
 

@@ -39,15 +39,23 @@ export const useTasksStore = defineStore('tasks', {
         columnCode: 'done'
       }
     ] as Task[],
+    currentTask: null as Task | null,
+    isTaskModalOpen: false as boolean
   }),
   getters: {
     getTasksList(): Task[] {
-      return this.tasks
+      return this.tasks;
+    },
+    getCurrentTask(): Task | null {
+      return this.currentTask;
+    },
+    getIsTaskModalOpen(): boolean {
+        return this.isTaskModalOpen;
     }
   },
   actions: {
     addTask(task: Task) {
-      this.tasks.push(task)
+      this.tasks.push(task);
     },
     deleteTask(id: number) {
       this.tasks = this.tasks.filter(task => task.id !== id)
@@ -58,5 +66,11 @@ export const useTasksStore = defineStore('tasks', {
         this.tasks[index] = task
       }
     },
+    setCurrentTask(task: Task) {
+      this.currentTask = task;
+    },
+    showTaskModal(payload: boolean) {
+      this.isTaskModalOpen = payload;
+    }
   }
 })
